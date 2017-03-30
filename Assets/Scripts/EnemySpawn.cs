@@ -21,8 +21,8 @@ public class EnemySpawn : MonoBehaviour
         print(EnemyCount);
         for (int i = 0; i < _data.CountEnemy; i++)
         {
-            _enemy = (Enemy)Instantiate(EnemyPrefab, new Vector3(Random.Range(-50f, 50f), 0.5f,
-                Random.Range(-50f, 50f)), Quaternion.identity);
+            _enemy = (Enemy)Instantiate(EnemyPrefab, new Vector3(Random.Range(-48f, 48f), 0.5f,
+                Random.Range(-48f, 48f)), Quaternion.identity);
             _enemy.TextArea.text = _data.EnemyNames[i];
         }
     }

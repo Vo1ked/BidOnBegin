@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class JoystickMoving : MonoBehaviour
 {
-    private float _maxPos = 80,_onePercent;
+    private float _maxPos,_onePercent;
 
     public Vector2  JoystickZeroPos = Vector2.zero, JoystickCurentPos = Vector2.zero;
 
@@ -14,6 +14,7 @@ public class JoystickMoving : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+	    _maxPos = GetComponent<RectTransform>().sizeDelta.x;
 	    _onePercent = 1f/_maxPos;
 	}
 	
