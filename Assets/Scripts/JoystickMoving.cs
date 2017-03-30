@@ -6,16 +6,18 @@ public class JoystickMoving : MonoBehaviour
 {
     private float _maxPos,_onePercent;
 
-    public Vector2  JoystickZeroPos = Vector2.zero, JoystickCurentPos = Vector2.zero;
+    private Vector2  _joystickZeroPos = Vector2.zero, JoystickCurentPos = Vector2.zero;
 
-    public RectTransform JojstickCenter, JojstickCurent;
+    public RectTransform JojstickCenter, JojstickCurent ,Point;
 
 
 	// Use this for initialization
 	void Start ()
 	{
-	    _maxPos = GetComponent<RectTransform>().sizeDelta.x;
+	    _maxPos = Vector3.Distance(JojstickCenter.GetComponent<Transform>().position,
+	        Point.GetComponent<Transform>().position);
 	    _onePercent = 1f/_maxPos;
+	    print(_maxPos);
 	}
 	
 	// Update is called once per frame
@@ -23,14 +25,15 @@ public class JoystickMoving : MonoBehaviour
 
 	}
 
-    public void JosticMove(BaseEventData eventData)
+
+        public void JosticMove(BaseEventData eventData)
     {
         JojstickCurent.transform.position =(eventData as PointerEventData).position;
-        float _dist = Vector2.Distance(JojstickCenter.transform.position, JojstickCurent.transform.position);
-        Vector3 _direction = JojstickCurent.transform.position - JojstickCenter.transform.position;
-        if (_dist >= _maxPos)
+        float dist = Vector2.Distance(JojstickCenter.transform.position, JojstickCurent.transform.position);
+        Vector3 direction = JojstickCurent.transform.position - JojstickCenter.transform.position;
+        if (dist >= _maxPos)
         {
-            JojstickCurent.transform.position = JojstickCenter.transform.position + _direction.normalized * _maxPos;
+            JojstickCurent.transform.position = JojstickCenter.transform.position + direction.normalized * _maxPos;
         }
         JoystickCurentPos = new Vector2(JojstickCurent.anchoredPosition.x*_onePercent, JojstickCurent.anchoredPosition.y * _onePercent);
 
@@ -60,7 +63,7 @@ public class JoystickMoving : MonoBehaviour
     //}
     public void JosticStartPos()
     {
-        GetComponent<RectTransform>().anchoredPosition = JoystickZeroPos;
+        GetComponent<RectTransform>().anchoredPosition = _joystickZeroPos;
         JoystickCurentPos = Vector2.zero;
     }
 }

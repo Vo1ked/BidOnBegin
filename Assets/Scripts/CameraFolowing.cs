@@ -4,24 +4,19 @@ using System.Collections;
 public class CameraFolowing : MonoBehaviour
 {
     [SerializeField] private Transform Player;
+    private Transform _playerLook;
 
-    private Vector3 _playerPos,_rotate;
-    [Range(-1,-50)]
-    public float CameraRange;
+    public float _lerpSpeed;
+
 
 	// Use this for initialization
 	void Start ()
 	{
-	    _rotate = transform.position- Player.position;
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        //_playerPos =new Vector3(Player.position.x,Player.position.y +3, Player.position.z - CameraRange); 
-
+        transform.position = Vector3.Lerp(transform.position,Player.GetChild(0).position,Time.deltaTime * _lerpSpeed);
         transform.LookAt(Player);
-	    transform.position = _playerPos;
-
 	}
 }

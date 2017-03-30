@@ -15,9 +15,9 @@ public class EnemySpawn : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        _data = JsonUtility.FromJson<PlayerData>(PlayerPrefs.GetString("EnemyNum"));
+        _data = JsonUtility.FromJson<PlayerData>(PlayerPrefs.GetString(KeyCodeEnemy));
         EnemyCount = _data.CountEnemy;
-        print(PlayerPrefs.GetString("EnemyNum"));
+        print(PlayerPrefs.GetString(KeyCodeEnemy));
         print(EnemyCount);
         for (int i = 0; i < _data.CountEnemy; i++)
         {
