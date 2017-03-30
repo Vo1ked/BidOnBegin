@@ -17,6 +17,6 @@ public class PlayerControl : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-	    _charterMove.Move(new Vector3(Joystick.JoystickCurentPos.x, 0, Joystick.JoystickCurentPos.y ) * MovmentSpeed);
+	    _charterMove.Move(new Vector3(-Joystick.JoystickCurentPos.x, 0, -Joystick.JoystickCurentPos.y ) * MovmentSpeed);
 	}
 }

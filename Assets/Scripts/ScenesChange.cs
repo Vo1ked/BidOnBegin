@@ -8,7 +8,10 @@ public class ScenesChange : MonoBehaviour
 {
     private PlayerData _data;
 
-    [SerializeField] private GameObject _imputTextFieald, _errormessage;
+    [SerializeField] private GameObject  _errormessage;
+
+    [SerializeField]
+    private InputField _imputTextFieald;
 
     private char[] _delimiter;
 
@@ -28,29 +31,22 @@ public class ScenesChange : MonoBehaviour
     { 
 
 	}
-
-    public void EnemyStringToList()
+    public void SceneChengeOnClick()
     {
+
         _data = JsonUtility.FromJson<PlayerData>(PlayerPrefs.GetString("EnemyNum"));
         _data.EnemyNames.Clear();
         _data.EnemyNames = _imputTextFieald.GetComponent<InputField>().text.Split(_delimiter).ToList();
-        PlayerPrefs.SetString("EnemyNum",JsonUtility.ToJson(_data));
+        PlayerPrefs.SetString("EnemyNum", JsonUtility.ToJson(_data));
         print(JsonUtility.ToJson(_data));
-    }
 
-
-    public void SceneChengeOnClick()
-    {
-        int _diff;
-        if (_data.EnemyNames == null)
+        if (string.IsNullOrEmpty(_data.EnemyNames[0]))
         {
             _TextForChange.text = "not entered write enemy names";
             _errormessage.SetActive(true);
             return;
         }
-        {
-            
-        }
+        int _diff;
 
         if (_data.EnemyNames.Count != _data.CountEnemy )
         {
