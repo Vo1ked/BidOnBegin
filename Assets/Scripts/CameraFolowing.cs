@@ -3,20 +3,21 @@ using System.Collections;
 
 public class CameraFolowing : MonoBehaviour
 {
-    [SerializeField] private Transform Player;
+    [SerializeField] private Transform Player,CameraPos;
     private Transform _playerLook;
 
-    public float _lerpSpeed;
+    public float LerpSpeed;
 
 
 	// Use this for initialization
 	void Start ()
 	{
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position = Vector3.Lerp(transform.position,Player.GetChild(0).position,Time.deltaTime * _lerpSpeed);
+        transform.position = Vector3.Lerp(transform.position, CameraPos.position,Time.deltaTime * LerpSpeed);
         transform.LookAt(Player);
 	}
 }
