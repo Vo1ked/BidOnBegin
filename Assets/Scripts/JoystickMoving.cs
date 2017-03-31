@@ -6,16 +6,19 @@ public class JoystickMoving : MonoBehaviour
 {
     private float _maxPos,_onePercent;
 
-    private Vector2  _joystickZeroPos = Vector2.zero, JoystickCurentPos = Vector2.zero;
+    private Vector2  _joystickZeroPos = Vector2.zero, _joystickSendPos = Vector2.zero;
 
-    public RectTransform JojstickCenter, JojstickCurent ,Point;
+    private RectTransform _joystickCenter, _joystickCurent, Point;
 
 
-	// Use this for initialization
-	void Start ()
-	{
-	    _maxPos = Vector3.Distance(JojstickCenter.GetComponent<Transform>().position,
-	        Point.GetComponent<Transform>().position);
+    // Use this for initialization
+    void Start ()
+    {
+        _joystickCurent = GetComponent<Transform>().GetChild(0).GetComponent<RectTransform>();
+        _joystickCenter = GetComponent<RectTransform>();
+        Point = GetComponent<Transform>().GetChild(1).GetComponent<RectTransform>();
+        _maxPos = Vector3.Distance(_joystickCenter.GetComponent<Transform>().position,
+	    Point.GetComponent<Transform>().position);
 	    _onePercent = 1f/_maxPos;
 	}
 	
@@ -25,44 +28,32 @@ public class JoystickMoving : MonoBehaviour
 	}
 
 
-        public void JosticMove(BaseEventData eventData)
+        public void JoystickPointerMove(BaseEventData eventData)
     {
-        JojstickCurent.transform.position =(eventData as PointerEventData).position;
-        float dist = Vector2.Distance(JojstickCenter.transform.position, JojstickCurent.transform.position);
-        Vector3 direction = JojstickCurent.transform.position - JojstickCenter.transform.position;
+        _joystickCurent.transform.position =(eventData as PointerEventData).position;
+        float dist = Vector2.Distance(_joystickCenter.transform.position, _joystickCurent.transform.position);
+        Vector3 direction = _joystickCurent.transform.position - _joystickCenter.transform.position;
         if (dist >= _maxPos)
         {
-            JojstickCurent.transform.position = JojstickCenter.transform.position + direction.normalized * _maxPos;
+            _joystickCurent.transform.position = _joystickCenter.transform.position + direction.normalized * _maxPos;
         }
-        JoystickCurentPos = new Vector2(JojstickCurent.anchoredPosition.x*_onePercent, JojstickCurent.anchoredPosition.y * _onePercent);
+        _joystickSendPos = new Vector2(_joystickCurent.anchoredPosition.x*_onePercent, _joystickCurent.anchoredPosition.y * _onePercent);
 
     }
+
+    public void JoystickMove()
+    {
+        
+    }
+
 
     public Vector2 JosticValue
     {
-        get { return JoystickCurentPos; }
+        get { return _joystickSendPos; }
     }
-    //public void JosticMove()
-    //{
-    //    JojstickCurent.anchoredPosition = new Vector2(Input.mousePosition.x - JojstickCenter.anchoredPosition.x ,
-    //        Input.mousePosition.y - JojstickCenter.anchoredPosition.y );
-
-    //    Debug.Log(Camera.main.ScreenToViewportPoint(Input.mousePosition)+ "Camera");
-    //    float _dist = Vector2.Distance(JojstickCenter.anchoredPosition, JojstickCurent.anchoredPosition);
-
-    //    Vector2 _direction = JojstickCurent.anchoredPosition - JojstickCenter.anchoredPosition;
-    //   // Debug.Log(JojstickCenter.anchoredPosition);
-    //    Debug.Log(Input.mousePosition + "world");
-
-    //    if (_dist >= _maxPos)
-    //    {
-    //        JojstickCurent.anchoredPosition = JojstickCenter.anchoredPosition + _direction.normalized * _maxPos;
-    //    }
-    //    //GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Clamp(Input.mousePosition.x - 128, _minPos, _maxPos), Mathf.Clamp(Input.mousePosition.y - 128, _minPos, _maxPos));
-    //}
     public void JosticStartPos()
     {
-        GetComponent<RectTransform>().anchoredPosition = _joystickZeroPos;
-        JoystickCurentPos = Vector2.zero;
+        _joystickCurent.anchoredPosition = _joystickZeroPos;
+        _joystickSendPos = Vector2.zero;
     }
 }

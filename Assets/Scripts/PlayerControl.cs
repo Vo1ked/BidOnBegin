@@ -5,11 +5,11 @@ public class PlayerControl : MonoBehaviour
 {
     public float MovmentSpeed = 0.1f;
 
-    public JoystickMoving JoystickLeft,JoystickRight;
+    public JoystickMoving JoystickLeft;
     [SerializeField]
     private CharacterController _charterMove;
 
-    private Transform _playerPos, CameraPointPos;
+    private Transform _playerPos;
 
 
 
@@ -18,7 +18,6 @@ public class PlayerControl : MonoBehaviour
     // Use this for initialization
 	void Start ()
 	{
-	    CameraPointPos = this.GetComponent<Transform>().GetChild(0);
 	}
 	
 	// Update is called once per frame
