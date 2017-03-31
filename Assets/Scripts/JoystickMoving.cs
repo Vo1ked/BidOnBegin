@@ -8,17 +8,16 @@ public class JoystickMoving : MonoBehaviour
 
     private Vector2  _joystickZeroPos = Vector2.zero, _joystickSendPos = Vector2.zero;
 
-    private RectTransform _joystickCenter, _joystickCurent, Point;
+    public RectTransform _joystickCenter, _joystickCurent, Point;
 
 
     // Use this for initialization
     void Start ()
     {
-        _joystickCurent = GetComponent<Transform>().GetChild(0).GetComponent<RectTransform>();
-        _joystickCenter = GetComponent<RectTransform>();
-        Point = GetComponent<Transform>().GetChild(1).GetComponent<RectTransform>();
-        _maxPos = Vector3.Distance(_joystickCenter.GetComponent<Transform>().position,
-	    Point.GetComponent<Transform>().position);
+        //_joystickCurent = GetComponent<Transform>().GetChild(0).GetComponent<RectTransform>();
+        //_joystickCenter = GetComponent<RectTransform>();
+        //Point = GetComponent<Transform>().GetChild(1).GetComponent<RectTransform>();
+
 	    _onePercent = 1f/_maxPos;
 	}
 	
@@ -41,9 +40,11 @@ public class JoystickMoving : MonoBehaviour
 
     }
 
-    public void JoystickMove()
+    public void JoystickMove(BaseEventData eventDataMove)
     {
-        
+        _maxPos = Vector3.Distance(_joystickCenter.transform.position,
+            Point.transform.position);
+        _joystickCenter.transform.position = (eventDataMove as PointerEventData).position;
     }
 
 
