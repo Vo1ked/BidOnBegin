@@ -4,23 +4,19 @@ using UnityEngine;
 
 public class BulletShot : MonoBehaviour
 {
-    private Transform _player;
-
-    private Ray _direction;
-
-    private float _distance = 500;
+    private GameObject _player;
 
     public float BulletSpeed;
 
+    private Enemy _enemyTarget;
 
-    private RaycastHit hit;
-
-    [SerializeField] private Enemy _enemyTarget;
 
 	// Use this for initialization
 	void Start ()
 	{
-	    _player = GameObject.FindGameObjectWithTag("Player").transform;
+	    _player = GameObject.FindGameObjectWithTag("Player");
+	    _enemyTarget = _player.GetComponent<PlayerControl>().EnemyTarget;
+        Destroy(gameObject,3);
 	}
 	
 	// Update is called once per frame
@@ -30,21 +26,12 @@ public class BulletShot : MonoBehaviour
         }
     private void FindShotTarget()
     {
-        _direction = new Ray(_player.position,_player.forward);
-
-            if (Physics.Raycast(_direction, out hit, _distance))
-            {
-
-                transform.position = Vector3.Lerp(transform.position, hit.transform.position, BulletSpeed);
-                if (Vector3.Distance(transform.position, hit.transform.position) < 2)
+        transform.position += transform.forward*Time.deltaTime*BulletSpeed;
+        if (_enemyTarget != null)
+            if (Vector3.Distance(transform.position, _enemyTarget.transform.position) < 1)
                 {
-                if (hit.collider.tag == "Enemy")
-                {
-                    _enemyTarget = hit.transform.GetComponent<Enemy>();
-                    _enemyTarget.SlideArea.value = _enemyTarget.SlideArea.value - (int)Random.Range(1,5);
-                }
+                _enemyTarget.EnemyHit(Random.Range(1,5));
                 Destroy(gameObject);
                 }
             }
      }
-}

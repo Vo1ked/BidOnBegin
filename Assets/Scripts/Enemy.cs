@@ -16,8 +16,14 @@ public class Enemy : MonoBehaviour
 	void Update () {
 	    if (SlideArea.value <1)
 	    {
-	     Destroy(gameObject);   
-	    }
-	}
+	        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>().EnemyTarget = null;
+            Destroy(gameObject);
 
+        }
+    }
+
+    public void EnemyHit(float damage)
+    {
+        SlideArea.value -= damage;
+    }
 }

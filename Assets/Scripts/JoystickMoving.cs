@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
 
@@ -10,13 +11,10 @@ public class JoystickMoving : MonoBehaviour
 
     public RectTransform _joystickCenter, _joystickCurent, Point;
 
-
+ //   public Action 
     // Use this for initialization
     void Start ()
     {
-        //_joystickCurent = GetComponent<Transform>().GetChild(0).GetComponent<RectTransform>();
-        //_joystickCenter = GetComponent<RectTransform>();
-        //Point = GetComponent<Transform>().GetChild(1).GetComponent<RectTransform>();
         _maxPos = Vector3.Distance(_joystickCenter.transform.position,
             Point.transform.position);
         _onePercent = 1f/_maxPos;
@@ -28,7 +26,7 @@ public class JoystickMoving : MonoBehaviour
 	}
 
 
-        public void JoystickPointerMove(BaseEventData eventData)
+    public void JoystickPointerMove(BaseEventData eventData)
     {
         _joystickCurent.transform.position =(eventData as PointerEventData).position;
         float dist = Vector2.Distance(_joystickCenter.transform.position, _joystickCurent.transform.position);
@@ -46,6 +44,8 @@ public class JoystickMoving : MonoBehaviour
         _maxPos = Vector3.Distance(_joystickCenter.transform.position,
             Point.transform.position);
         _joystickCenter.transform.position = (eventDataMove as PointerEventData).position;
+
+
     }
 
 
