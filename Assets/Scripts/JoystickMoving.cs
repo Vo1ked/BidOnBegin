@@ -17,8 +17,9 @@ public class JoystickMoving : MonoBehaviour
         //_joystickCurent = GetComponent<Transform>().GetChild(0).GetComponent<RectTransform>();
         //_joystickCenter = GetComponent<RectTransform>();
         //Point = GetComponent<Transform>().GetChild(1).GetComponent<RectTransform>();
-
-	    _onePercent = 1f/_maxPos;
+        _maxPos = Vector3.Distance(_joystickCenter.transform.position,
+            Point.transform.position);
+        _onePercent = 1f/_maxPos;
 	}
 	
 	// Update is called once per frame

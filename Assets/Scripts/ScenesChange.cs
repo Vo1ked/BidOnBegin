@@ -21,7 +21,7 @@ public class ScenesChange : MonoBehaviour
 	// Use this for initialization
 	void Start () {
         _data = new PlayerData();
-	    _delimiter = new char[] {'|', ' ', '.',','};
+	    _delimiter = new char[] {'|', '.',','};
 
     }   
 

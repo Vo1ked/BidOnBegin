@@ -11,7 +11,7 @@ public class PlayerControl : MonoBehaviour
 
     private Transform _playerPos;
 
-
+    public GameObject Bullet;
 
 
 
@@ -33,6 +33,9 @@ public class PlayerControl : MonoBehaviour
        JoystickLeft.JosticValue.y) * MovmentSpeed);
     }
 
-
+    public void Shoting()
+    {
+        Instantiate(Bullet, transform.position,transform.rotation);
+    }
 
 }
