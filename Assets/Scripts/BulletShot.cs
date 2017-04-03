@@ -14,9 +14,6 @@ public class BulletShot : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	    _player = GameObject.FindGameObjectWithTag("Player");
-	    _enemyTarget = _player.GetComponent<PlayerControl>().EnemyTarget;
-        Destroy(gameObject,3);
 	}
 	
 	// Update is called once per frame
@@ -31,7 +28,20 @@ public class BulletShot : MonoBehaviour
             if (Vector3.Distance(transform.position, _enemyTarget.transform.position) < 1)
                 {
                 _enemyTarget.EnemyHit(Random.Range(1,5));
-                Destroy(gameObject);
+                gameObject.SetActive(false);
                 }
             }
-     }
+
+    public void ShotPos()
+    {
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _enemyTarget = _player.GetComponent<PlayerControl>().EnemyTarget;
+        StartCoroutine(BulletShotdown());
+    }
+
+    IEnumerator BulletShotdown()
+    {
+        yield return new WaitForSeconds(4f);
+        gameObject.SetActive(false);
+    }
+}
