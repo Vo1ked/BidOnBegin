@@ -41,7 +41,7 @@ public class BulletShot : MonoBehaviour
                 if (hit.collider.tag == "Enemy")
                 {
                     _enemyTarget = hit.transform.GetComponent<Enemy>();
-                    _enemyTarget.SlideArea.value = _enemyTarget.SlideArea.value - 1;
+                    _enemyTarget.SlideArea.value = _enemyTarget.SlideArea.value - (int)Random.Range(1,5);
                 }
                 Destroy(gameObject);
                 }
