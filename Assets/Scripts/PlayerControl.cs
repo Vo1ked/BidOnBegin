@@ -41,8 +41,8 @@ public class PlayerControl : MonoBehaviour
 
     private void CharterMove()
     {
-        _charterMove.Move(new Vector3(JoystickLeft.JosticValue.x, 0,
-                              JoystickLeft.JosticValue.y)*MovmentSpeed);
+        transform.position += transform.right * JoystickLeft.JosticValue.x * MovmentSpeed;
+        transform.position += transform.forward *JoystickLeft.JosticValue.y * MovmentSpeed;
     }
 
     public void Shoting()
