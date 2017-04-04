@@ -18,30 +18,32 @@ public class BulletShot : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-        FindShotTarget();
+	    FindShotTarget();
+	}
 
-        }
-    private void FindShotTarget()
+    private  void FindShotTarget()
     {
-        transform.position += transform.forward*Time.deltaTime*BulletSpeed;
-        if (_enemyTarget != null)
-            if (Vector3.Distance(transform.position, _enemyTarget.transform.position) < 1)
+            transform.position += transform.forward*Time.deltaTime*BulletSpeed;
+            if (_enemyTarget != null)
+                if (Vector3.Distance(transform.position, _enemyTarget.transform.position) < 1)
                 {
-                _enemyTarget.EnemyHit(Random.Range(1,5));
-                gameObject.SetActive(false);
+                    _enemyTarget.EnemyHit(Random.Range(1, 5));
+                    gameObject.SetActive(false);
                 }
-            }
+    }
 
     public void ShotPos()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
         _enemyTarget = _player.GetComponent<PlayerControl>().EnemyTarget;
+        transform.position = _player.transform.position;
+        transform.rotation = _player.transform.rotation;
         StartCoroutine(BulletShotdown());
     }
 
     IEnumerator BulletShotdown()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
         gameObject.SetActive(false);
     }
 }

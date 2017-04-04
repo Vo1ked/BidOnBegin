@@ -47,23 +47,21 @@ public class PlayerControl : MonoBehaviour
 
     public void Shoting()
     {
-
-        //Instantiate(Bullet, transform.position, transform.rotation);
-        BulletStorage.transform.GetChild(_bulletNum).gameObject.SetActive(true);
-        BulletStorage.transform.GetChild(_bulletNum).GetComponent<BulletShot>().ShotPos();
-        _bulletNum++;
-        if (_bulletNum == _bulletCap)
-        {
-            _bulletNum = 0;
-        }
-
-            _direction = new Ray(transform.position, transform.forward);
+        _direction = new Ray(transform.position, transform.forward);
         if (Physics.Raycast(_direction, out hit, _distance))
         {
             if (hit.collider.tag == "Enemy")
             {
                 EnemyTarget = hit.transform.GetComponent<Enemy>();
             }
+        }
+        //Instantiate(Bullet, transform.position, transform.rotation);
+        BulletStorage.transform.GetChild(_bulletNum).gameObject.SetActive(true);
+        BulletStorage.transform.GetChild(_bulletNum).GetComponent<BulletShot>().ShotPos();
+        _bulletNum++;
+        if (_bulletNum >= _bulletCap)
+        {
+            _bulletNum = 0;
         }
 
     }
