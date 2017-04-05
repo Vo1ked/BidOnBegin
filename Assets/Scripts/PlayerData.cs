@@ -46,8 +46,11 @@ public class PlayerData
     public void NewPlayer(string newPlayerName)
     {
         _data = JsonUtility.FromJson<PlayerData>(PlayerPrefs.GetString("GameStorage"));
-        if (_data == null)
+        Debug.Log(PlayerPrefs.GetString("GameStorage"));
+
+        if (_data.PlayerName  == null)
         {
+            Debug.Log("New New player");
             _data = new PlayerData
             {
                 PlayerName = new List<string>(),
@@ -63,7 +66,11 @@ public class PlayerData
         _data.PlayerScore.Add(0);
         _data.CurentPlayer = _data.PlayerName.Count-1;
         Debug.Log("newPlayer");
-        PlayerPrefs.SetString("GameStorage", JsonUtility.ToJson(_data));
-      //  _data.AboutPlayer = new PlayerInfo(newPlayerName, 1, 0);
+        Debug.Log(JsonUtility.ToJson(_data));
+        string a = JsonUtility.ToJson(_data);
+        PlayerPrefs.SetString("GameStorage", a);
+        Debug.Log(PlayerPrefs.GetString("GameStorage"));
+
+        //  _data.AboutPlayer = new PlayerInfo(newPlayerName, 1, 0);
     }
 }

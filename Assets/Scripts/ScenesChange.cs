@@ -80,7 +80,6 @@ public class ScenesChange : MonoBehaviour
         }
         if (!_playerExsist)
             _data.NewPlayer(_inputPlayerNameField.text);
-
         if (_data.EnemyNames.Count != _data.CountEnemy)
         {
             if (_data.EnemyNames.Count > _data.CountEnemy)

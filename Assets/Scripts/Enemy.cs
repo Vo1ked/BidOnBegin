@@ -31,7 +31,8 @@ public class Enemy : MonoBehaviour
 	        _data = JsonUtility.FromJson<PlayerData>(PlayerPrefs.GetString("GameStorage"));
             Debug.Log(_data.PlayerScore[_data.CurentPlayer]);
 	        _data.PlayerScore[_data.CurentPlayer]++;
-            PlayerPrefs.SetString("GameStorage", JsonUtility.ToJson(_data));
+	        string writeFile = JsonUtility.ToJson(_data);
+            PlayerPrefs.SetString("GameStorage", writeFile);
             _changeScore.Score.text = " " + _data.PlayerScore[_data.CurentPlayer];
             Destroy(gameObject);
 
