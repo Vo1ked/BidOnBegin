@@ -12,7 +12,7 @@ public class RotateStop : MonoBehaviour
 
     public float MinValue;
     [Range(0, 10)]
-    public float Speed ;
+    public float Speed;
     private float _componentHeght;
 
     public bool StartMetod, LerpMove;
@@ -25,7 +25,7 @@ public class RotateStop : MonoBehaviour
 
     private ScrollRect _scrollVelocity;
 
-    public string KeyData = "EnemyNum";
+    public string KeyData = "GameStorage";
 
     // Use this for initialization
     void Start()
@@ -58,7 +58,7 @@ public class RotateStop : MonoBehaviour
         {
             if (Math.Abs(_scrollVelocity.velocity.y) <= MinValue)
             {
-                _intNumber = (int)((ContentList.anchoredPosition.y + _componentHeght/2)
+                _intNumber = (int)((ContentList.anchoredPosition.y + _componentHeght / 2)
                     / _componentHeght);
                 _lerpTo = new Vector2(0, _componentHeght * _intNumber);
 
@@ -68,7 +68,6 @@ public class RotateStop : MonoBehaviour
                     _scrollVelocity.velocity.Set(0, 0);
                     _data.CountEnemy = _intNumber + 1;
                     PlayerPrefs.SetString(KeyData, JsonUtility.ToJson(_data));
-                    print(_data.CountEnemy);
                     StartMetod = false;
                 }
                 else
@@ -81,17 +80,11 @@ public class RotateStop : MonoBehaviour
                         PlayerPrefs.SetString(KeyData, JsonUtility.ToJson(_data));
                         print(_data.CountEnemy);
                         StartMetod = false;
-                        print(_intNumber+1 + "  Lerp False");
+
                     }
                 }
             }
         }
     }
 
-}
-public class PlayerData
-{
-    public int CountEnemy;
-    [SerializeField]
-    public List<string> EnemyNames;
 }
